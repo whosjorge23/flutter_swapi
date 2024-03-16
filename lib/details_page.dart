@@ -1,25 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_swapi/models/planet.dart';
+import 'package:flutter_swapi/network/planet_repository.dart';
 import 'package:flutter_swapi/service/api_service.dart';
+
+import 'models/swapi.dart';
 
 class DetailsPage extends StatefulWidget {
   DetailsPage({Key? key, required this.character, required this.index})
       : super(key: key);
   int index;
-  var character;
+  Result character;
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  var planetInfo;
+  Planet? planetInfo;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    ApisService.planetInfo("${widget.character["homeworld"]}")
-        .then((value) => {planetInfo = value, setState(() {})});
+    loadPlanetInfo();
+  }
+
+  void loadPlanetInfo() async {
+    try {
+      final planet = await PlanetRepository().planetInfo("${widget.character.homeworld}");
+      if (mounted) {
+        setState(() {
+          planetInfo = planet;
+        });
+      }
+    } catch (e) {
+      // Handle errors or exceptions if necessary
+      print('Error loading planet info: $e');
+    }
   }
 
   @override
@@ -29,7 +45,7 @@ class _DetailsPageState extends State<DetailsPage> {
       appBar: AppBar(
         backgroundColor: Color(0xffFFEE58),
         title: Text(
-          "${widget.character["name"]}",
+          "${widget.character.name}",
           style: TextStyle(color: Colors.black),
         ),
         actions: [],
@@ -58,7 +74,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               style: TextStyle(color: Colors.white),
                             ),
                             Text(
-                              "${widget.character["name"]}",
+                              "${widget.character.name}",
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
@@ -71,7 +87,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               style: TextStyle(color: Colors.white),
                             ),
                             Text(
-                              "${widget.character["height"]}",
+                              "${widget.character.height}",
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
@@ -84,7 +100,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               style: TextStyle(color: Colors.white),
                             ),
                             Text(
-                              "${widget.character["mass"]}",
+                              "${widget.character.mass}",
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
@@ -97,7 +113,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               style: TextStyle(color: Colors.white),
                             ),
                             Text(
-                              "${widget.character["hair_color"]}",
+                              "${widget.character.hairColor}",
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
@@ -110,7 +126,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               style: TextStyle(color: Colors.white),
                             ),
                             Text(
-                              "${widget.character["skin_color"]}",
+                              "${widget.character.skinColor}",
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
@@ -123,7 +139,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               style: TextStyle(color: Colors.white),
                             ),
                             Text(
-                              "${widget.character["eye_color"]}",
+                              "${widget.character.eyeColor}",
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
@@ -136,7 +152,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               style: TextStyle(color: Colors.white),
                             ),
                             Text(
-                              "${widget.character["birth_year"]}",
+                              "${widget.character.birthYear}",
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
@@ -149,7 +165,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               style: TextStyle(color: Colors.white),
                             ),
                             Text(
-                              "${widget.character["gender"]}",
+                              "${widget.character.gender}",
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
@@ -162,7 +178,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               style: TextStyle(color: Colors.white),
                             ),
                             Text(
-                              "${planetInfo["name"]}",
+                              "${planetInfo?.name}",
                               style: TextStyle(color: Colors.white),
                             ),
                           ],

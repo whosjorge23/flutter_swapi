@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swapi/details_page.dart';
+import 'package:flutter_swapi/network/character_repository.dart';
 import 'package:flutter_swapi/service/api_service.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,7 +11,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,12 +38,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    ApisService.allCharacters("?page=${pageNumber}").then(
+    CharacterRepository().allCharacters("?page=${pageNumber}").then(
       (value) => {
         if (value != null)
           {
             pageNumber += 1,
-            for (var item in value)
+            for (var item in value.results!)
               {
                 listCharacters.add(item),
                 setState(() {}),
@@ -67,13 +67,13 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             onPressed: () {
               if (pageNumber <= 9) {
-                ApisService.allCharacters("?page=${pageNumber}").then(
+                CharacterRepository().allCharacters("?page=${pageNumber}").then(
                   (value) => {
                     if (value != null)
                       {
                         pageNumber += 1,
                         setState(() {}),
-                        for (var item in value)
+                        for (var item in value.results!)
                           {
                             listCharacters.add(item),
                           },
@@ -119,11 +119,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 child: const Text(
                   "Details",
-                  style: TextStyle(color: Color(0xff4C9BE5), fontSize: 15),
+                  style: TextStyle(color: Colors.amber, fontSize: 15),
                 ),
               ),
               title: Text(
-                "${listCharacters[index]["name"]}",
+                "${listCharacters[index].name}",
                 style: TextStyle(color: Colors.white),
               ),
             );
