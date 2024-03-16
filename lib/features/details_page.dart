@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swapi/models/planet.dart';
-import 'package:flutter_swapi/network/planet_repository.dart';
-import 'package:flutter_swapi/service/api_service.dart';
+import 'package:flutter_swapi/shared_export.dart';
 
-import 'models/swapi.dart';
+import '../models/swapi.dart';
 
-class DetailsPage extends StatefulWidget {
-  DetailsPage({Key? key, required this.character, required this.index})
+class CharacterDetails extends StatefulWidget {
+  CharacterDetails({Key? key, required this.character, required this.index})
       : super(key: key);
   int index;
   Result character;
 
   @override
-  State<DetailsPage> createState() => _DetailsPageState();
+  State<CharacterDetails> createState() => _CharacterDetailsState();
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class _CharacterDetailsState extends State<CharacterDetails> {
   Planet? planetInfo;
 
   @override
@@ -26,7 +25,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
   void loadPlanetInfo() async {
     try {
-      final planet = await PlanetRepository().planetInfo("${widget.character.homeworld}");
+      final planet = await planetRepository.planetInfo("${widget.character.homeworld}");
       if (mounted) {
         setState(() {
           planetInfo = planet;
@@ -55,15 +54,11 @@ class _DetailsPageState extends State<DetailsPage> {
           child: planetInfo != null
               ? Column(
                   children: [
-                    widget.index >= 16
-                        ? Image.network(
-                            "https://starwars-visualguide.com/assets/img/characters/${widget.index + 2}.jpg",
+                    Image.network(
+                      imagesService.getImageCharacter(widget.index),
                             width: MediaQuery.of(context).size.width / 2,
                           )
-                        : Image.network(
-                            "https://starwars-visualguide.com/assets/img/characters/${widget.index + 1}.jpg",
-                            width: MediaQuery.of(context).size.width / 2,
-                          ),
+                       ,
                     Column(
                       children: [
                         Row(
