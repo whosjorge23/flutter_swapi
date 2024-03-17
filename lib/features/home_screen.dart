@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_swapi/features/details_page.dart';
 import 'package:flutter_swapi/routes/go_router_config.dart';
 import 'package:flutter_swapi/shared_export.dart';
 import 'package:go_router/go_router.dart';
@@ -70,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.refresh,
               color: Colors.black,
             ),
@@ -80,26 +79,29 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ListView.builder(
           itemCount: listCharacters.length,
           itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              leading:
-              Image.network(imagesService.getImageCharacter(index)),
-              trailing: TextButton(
-                onPressed: () => {
-                  // print("Button pressed: ${listCharacters[index]}"),
-                  // print("Button pressed: $index"),
-                context.push(ScreenPaths.characterDetails, extra: {
-                'character': listCharacters[index],
-                'index': index,
-                })
-                },
-                child: const Text(
-                  "Details",
-                  style: TextStyle(color: Colors.amber, fontSize: 15),
+            return Padding(
+              padding: const EdgeInsets.only(top: 2.0, bottom: 2.0),
+              child: ListTile(
+                leading:
+                Image.network(imagesService.getImageCharacter(index)),
+                trailing: TextButton(
+                  onPressed: () => {
+                    // print("Button pressed: ${listCharacters[index]}"),
+                    // print("Button pressed: $index"),
+                  context.push(ScreenPaths.characterDetails, extra: {
+                  'character': listCharacters[index],
+                  'index': index,
+                  })
+                  },
+                  child: const Text(
+                    "Details",
+                    style: TextStyle(color: Color(0xffFFEE58), fontSize: 15),
+                  ),
                 ),
-              ),
-              title: Text(
-                "${listCharacters[index].name}",
-                style: TextStyle(color: Colors.white),
+                title: Text(
+                  "${listCharacters[index].name}",
+                  style: const TextStyle(color: Colors.white),
+                ),
               ),
             );
           }),
