@@ -17,9 +17,6 @@ class CharacterRepository {
         print("Error: Failed to load characters, status code: ${response.statusCode}");
         return null;
       }
-    } on DioError catch (e) {
-      print("DioError: Unable to establish connection with the server. ${e.message}");
-      return null;
     } catch (e) {
       print("Exception: ${e.toString()}");
       return null;

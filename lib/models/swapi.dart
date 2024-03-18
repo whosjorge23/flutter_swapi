@@ -12,7 +12,7 @@ class Swapi {
   @JsonKey(name: "previous")
   dynamic previous;
   @JsonKey(name: "results")
-  List<Result>? results;
+  List<Character>? results;
 
   Swapi({
     this.count,
@@ -27,7 +27,7 @@ class Swapi {
 }
 
 @JsonSerializable()
-class Result {
+class Character {
   @JsonKey(name: "name")
   String? name;
   @JsonKey(name: "height")
@@ -61,7 +61,7 @@ class Result {
   @JsonKey(name: "url")
   String? url;
 
-  Result({
+  Character({
     this.name,
     this.height,
     this.mass,
@@ -80,7 +80,7 @@ class Result {
     this.url,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
+  factory Character.fromJson(Map<String, dynamic> json) => _$CharacterFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ResultToJson(this);
+  Map<String, dynamic> toJson() => _$CharacterToJson(this);
 }

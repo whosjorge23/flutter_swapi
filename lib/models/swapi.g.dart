@@ -11,7 +11,7 @@ Swapi _$SwapiFromJson(Map<String, dynamic> json) => Swapi(
       next: json['next'] as String?,
       previous: json['previous'],
       results: (json['results'] as List<dynamic>?)
-          ?.map((e) => Result.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Character.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -22,7 +22,7 @@ Map<String, dynamic> _$SwapiToJson(Swapi instance) => <String, dynamic>{
       'results': instance.results,
     };
 
-Result _$ResultFromJson(Map<String, dynamic> json) => Result(
+Character _$CharacterFromJson(Map<String, dynamic> json) => Character(
       name: json['name'] as String?,
       height: json['height'] as String?,
       mass: json['mass'] as String?,
@@ -51,7 +51,7 @@ Result _$ResultFromJson(Map<String, dynamic> json) => Result(
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
+Map<String, dynamic> _$CharacterToJson(Character instance) => <String, dynamic>{
       'name': instance.name,
       'height': instance.height,
       'mass': instance.mass,

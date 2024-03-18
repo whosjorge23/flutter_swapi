@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swapi/features/character_details_screen.dart';
+import 'package:flutter_swapi/features/cubit/swapi_cubit.dart';
 import 'package:flutter_swapi/features/home_screen.dart';
 import 'package:flutter_swapi/models/swapi.dart';
 import 'package:go_router/go_router.dart';
 
-
 class ScreenPaths {
   static String home = '/home';
   static String characterDetails = '/character_details';
-
 }
 
 NoTransitionPage pageBuilder(Widget widget) {
@@ -27,8 +27,12 @@ GoRouter createGoRouter({
         parentNavigatorKey: navigatorKey,
         pageBuilder: (context, state) {
           return pageBuilder(
-            HomeScreen(title: 'Flutter Swapi',),
-
+            BlocProvider(
+              create: (context) => SwapiCubit(),
+              child: HomeScreen(
+                title: 'Flutter Swapi',
+              ),
+            ),
           );
         },
       ),
@@ -37,7 +41,11 @@ GoRouter createGoRouter({
         parentNavigatorKey: navigatorKey,
         pageBuilder: (context, state) {
           Map<String, Object?> characterDetails = state.extra as Map<String, Object?>;
-          return pageBuilder(CharacterDetailsScreen(character: characterDetails['character']! as Result, index: characterDetails['index']! as int));
+          return pageBuilder(BlocProvider(
+            create: (context) => SwapiCubit(),
+            child: CharacterDetailsScreen(
+                character: characterDetails['character']! as Character, index: characterDetails['index']! as int),
+          ));
         },
       ),
     ],
