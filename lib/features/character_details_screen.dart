@@ -35,8 +35,8 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: TextStyle(color: Color(0xffFFEE58))),
-          Text(value, style: TextStyle(color: Colors.white)),
+          Text(label, style: TextStyle(color: appColors.starwarsYellow)),
+          Text(value, style: TextStyle(color: appColors.white)),
         ],
       ),
     );
@@ -47,13 +47,13 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
     return BlocBuilder<SwapiCubit, SwapiState>(
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: appColors.black,
           appBar: AppBar(
-            backgroundColor: const Color(0xffFFEE58),
-            title: Text("${widget.character.name}", style: const TextStyle(color: Colors.black)),
+            backgroundColor: appColors.starwarsYellow,
+            title: Text("${widget.character.name}", style: TextStyle(color: appColors.black)),
             leading: IconButton(
               onPressed: () => Navigator.of(context).pop(),
-              icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black),
+              icon: Icon(Icons.arrow_back_ios_new_rounded, color: appColors.black),
             ),
           ),
           body: state.planet == null
@@ -81,7 +81,7 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
                       _buildCharacterInfoRow("Birth Year", "${widget.character.birthYear}"),
                       _buildCharacterInfoRow("Gender", "${widget.character.gender}"),
                       _buildCharacterInfoRow("Planet", state.planet?.name ?? "Loading..."),
-                      Gap(32)
+                      const Gap(32)
                     ],
                   ),
                 ),

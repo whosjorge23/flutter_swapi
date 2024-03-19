@@ -23,10 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           backgroundColor: Colors.black45,
           appBar: AppBar(
-            backgroundColor: Color(0xffFFEE58),
+            backgroundColor: appColors.starwarsYellow,
             title: Text(
               widget.title,
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: appColors.black),
             ),
             actions: const [],
           ),
@@ -47,14 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               'index': index,
                             })
                           },
-                          child: const Text(
+                          child: Text(
                             "Details",
-                            style: TextStyle(color: Color(0xffFFEE58), fontSize: 15),
+                            style: TextStyle(color: appColors.starwarsYellow, fontSize: 15),
                           ),
                         ),
                         title: Text(
                           "${state.characters?[index].name}",
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: appColors.white),
                         ),
                       ),
                     );
